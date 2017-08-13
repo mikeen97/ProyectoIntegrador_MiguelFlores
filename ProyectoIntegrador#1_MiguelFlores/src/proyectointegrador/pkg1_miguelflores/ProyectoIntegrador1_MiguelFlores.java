@@ -19,18 +19,26 @@ public class ProyectoIntegrador1_MiguelFlores {
      */
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        String estado = "";
-        String opcion = "";
-        while (!opcion.equalsIgnoreCase("f")) {
-            opcion = JOptionPane.showInputDialog("Menu\n"
-                    + "a- Agregar Usuario \n"
-                    + "b- Eliminar Usuario\n"
-                    + "c- Listar Usuario\n"
-                    + "d- Modificar Usuario\n"
-                    + "e- Entrar a cuenta personal\n"
-                    + "f- Salir \n");
-            if (opcion.equals("a")) {
-                
+        int comenzar = 0;
+        int opcion = 0;
+        String morir = "s";
+        boolean continuar = true;
+        while (morir.equalsIgnoreCase("s")) {
+            
+        }
+    }
+
+    public static void PrintMatrizRecursiva(String x[][], int f, int c) {
+
+        if (f == x.length - 1 && c == x.length - 1) {
+            System.out.print(x[f][c] + "");
+        } else {
+            if (c == x[0].length - 1) {
+                System.out.println(x[f][c]);
+                PrintMatrizRecursiva(x, f + 1, 0);
+            } else {
+                System.out.print(x[f][c] + " ");
+                PrintMatrizRecursiva(x, f, c + 1);
             }
         }
     }
