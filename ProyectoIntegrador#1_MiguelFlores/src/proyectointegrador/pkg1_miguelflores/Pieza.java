@@ -5,10 +5,14 @@
  */
 package proyectointegrador.pkg1_miguelflores;
 
+import java.awt.Color;
+
 /**
  *
  * @author Miguel Flores
  */
 public abstract class Pieza {
+
+    public abstract int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery);
     
 }

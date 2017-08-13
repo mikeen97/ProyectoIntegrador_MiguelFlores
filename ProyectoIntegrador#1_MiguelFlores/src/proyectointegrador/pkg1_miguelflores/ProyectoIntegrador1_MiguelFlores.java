@@ -5,6 +5,7 @@
  */
 package proyectointegrador.pkg1_miguelflores;
 
+import java.awt.Color;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
