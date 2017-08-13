@@ -24,13 +24,14 @@ public class ProyectoIntegrador1_MiguelFlores {
         int opcion = 0;
         String morir = "s";
         boolean continuar = true;
-        while (morir.equalsIgnoreCase("s")) {
-            
-        }
+        Pieza tablero[][] = new Pieza[19][19];
+        CrearTablero(tablero);
+        System.out.println("");
+        PrintMatrizRecursiva(tablero, 0, 0);
+
     }
 
-    public static void PrintMatrizRecursiva(String x[][], int f, int c) {
-
+    public static void PrintMatrizRecursiva(Pieza x[][], int f, int c) {
         if (f == x.length - 1 && c == x.length - 1) {
             System.out.print(x[f][c] + "");
         } else {
@@ -43,4 +44,74 @@ public class ProyectoIntegrador1_MiguelFlores {
             }
         }
     }
+
+    public static void CrearTablero(Pieza matriz[][]) {
+        Pieza x[][] = new Pieza[19][19];
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x.length; j++) {
+                matriz[i][j] = new EspacioEnBlanco();
+            }
+        }
+        for (int i = 0; i < 2; i++) {
+            matriz[0 + i][0] = new Castillo_x();
+            matriz[0 + i][1] = new Castillo_x();
+            matriz[1][17 + i] = new Castillo_x();
+            matriz[0][17 + i] = new Castillo_x();
+            matriz[17 + i][17] = new Castillo_x();
+            matriz[17 + i][18] = new Castillo_x();
+            matriz[18][0 + i] = new Castillo_x();
+            matriz[17][0 + i] = new Castillo_x();
+        }
+
+        for (int i = 0; i < 5; i++) {
+            matriz[3 + i][7 - i] = new Rebeldes();
+            matriz[3 + i][11 + i] = new Rebeldes();
+            matriz[11 + i][3 + i] = new Rebeldes();
+            matriz[15 - i][11 + i] = new Rebeldes();
+
+        }
+        for (int i = 0; i < 2; i++) {
+            matriz[10 - i * 2][4] = new Duques();
+            matriz[9][3 + i * 12] = new Rebeldes();
+            matriz[10 - i * 2][14] = new Duques();
+            matriz[4][8 + i * 2] = new Duques();
+            matriz[14][8 + i * 2] = new Rebeldes();
+            matriz[3 + i * 12][9] = new Rebeldes();
+
+        }
+
+        for (int i = 0; i < 3; i += 2) {
+            matriz[14 + i][0] = new Rebeldes();
+            matriz[0][14 + i] = new Rebeldes();
+            matriz[18][16 - i] = new Rebeldes();
+            matriz[16 - i][18] = new Rebeldes();
+            matriz[0][2 + i] = new Rebeldes();
+            matriz[2 + i][0] = new Rebeldes();
+            matriz[18][2 + i] = new Rebeldes();
+            matriz[2 + i][18] = new Rebeldes();
+
+        }
+        int posx = 6;
+        int posy = 9;
+        for (int i = 0; i < 4; i++) {
+            int posicion_x = 0;
+            for (int j = 0; j < 4; j++) {
+                matriz[posx + posicion_x][posy + j] = new Duques();
+                posicion_x++;
+            }
+            posx++;
+            posy--;
+        }
+        int cont = 0;
+        matriz[16][4] = new Rebeldes();
+        matriz[14][2] = new Rebeldes();
+        matriz[2][4] = new Rebeldes();
+        matriz[4][2] = new Rebeldes();
+        matriz[4][16] = new Rebeldes();
+        matriz[2][14] = new Rebeldes();
+        matriz[14][16] = new Rebeldes();
+        matriz[16][14] = new Rebeldes();
+        matriz[9][9] = new Rey();
+    }
+
 }

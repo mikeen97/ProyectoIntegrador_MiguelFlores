@@ -9,6 +9,20 @@ package proyectointegrador.pkg1_miguelflores;
  *
  * @author Miguel Flores
  */
-public class Rebeldes {
+public class Rebeldes extends Pieza{
+
+    public Rebeldes() {
+    }
+
+    @Override
+    public String toString() {
+        return "|R|";
+    }
+
+    
+    @Override
+    public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
