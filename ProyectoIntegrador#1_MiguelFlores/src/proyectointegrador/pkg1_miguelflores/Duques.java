@@ -75,6 +75,18 @@ public class Duques extends Pieza {
 
     @Override
     public void comida(Pieza[][] matriz) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (matriz[i][j] instanceof Rebeldes) {
+                    if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques && i != 0 && i != 18 && j != 0 && i != 18) {
+                        matriz[i][j] = new EspacioEnBlanco();
+                    }
+                    if (matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                        matriz[i][j] = new EspacioEnBlanco();
+                    }
+                }
+
+            }
+        }
     }
 }
