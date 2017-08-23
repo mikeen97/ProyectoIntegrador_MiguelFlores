@@ -29,43 +29,43 @@ public class Duques extends Pieza {
                 ladoAmover = posy - movery;
                 if (ladoAmover < 0) {//Abajo
                     movimientos = Math.abs(ladoAmover);
-                    while (cont <= movimientos && prueba == false) {
-                        System.out.println("pieza " + matriz[posy][posx]);
-                        if (matriz[posy + cont][posx].equals(e)) {
-                            System.out.println("111");
-                            System.out.println(matriz[posy - cont][posx].equals(e));
-                            prueba = false;
-                            retorno = 1;//libre
-                        } else {
-                            System.out.println("2222");
-                            prueba = true;
-                            retorno = 2;//encontro pieza enmedio
+                    for (int i = 1; i <= movimientos; i++) {
+                        if (matriz[posy + i][posx] instanceof Rebeldes) {
+                            return 1;
                         }
-                        cont++;
                     }
+                    return 2;
                 }
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
-                    System.out.println("movimientos: " + movimientos);
-                    while (cont <= movimientos && prueba == false) {
-                        System.out.println("pieza " + matriz[posy][posx]);
-                        if (matriz[posy - cont][posx].equals(e)) {
-                            System.out.println("111");
-                            System.out.println(matriz[posy - cont][posx].equals(e));
-                            prueba = false;
-                            retorno = 1;//libre
-                            System.out.println("retorno en while: " + retorno);
-                            System.out.println("prueba en while: " + prueba);
-                        } else {
-                            System.out.println("2222");
-                            prueba = true;
-                            retorno = 2;//encontro pieza enmedio
+                    for (int i = 1; i <= movimientos; i++) {
+                        if (matriz[posy - i][posx] instanceof Rebeldes) {
+                            return 1;
                         }
-                        cont++;
                     }
+                    return 2;
                 }
             }
-            if (posy == movery) {
+            if (posy == movery) {//movimiento horizontal
+                ladoAmover = posx - moverx;
+                if (ladoAmover < 0) {//Abajo
+                    movimientos = Math.abs(ladoAmover);
+                    for (int i = 1; i <= movimientos; i++) {
+                        if (matriz[posy][posx + i] instanceof Rebeldes) {
+                            return 1;
+                        }
+                    }
+                    return 2;
+                }
+                if (ladoAmover > 0) {//arriba
+                    movimientos = Math.abs(ladoAmover);
+                    for (int i = 1; i <= movimientos; i++) {
+                        if (matriz[posy][posx - i] instanceof Rebeldes) {
+                            return 1;
+                        }
+                    }
+                    return 2;
+                }
             }
         } else {
             retorno = 2;

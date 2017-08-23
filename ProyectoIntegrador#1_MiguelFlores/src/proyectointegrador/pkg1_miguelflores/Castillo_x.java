@@ -18,9 +18,6 @@ public class Castillo_x extends Pieza{
     public String toString() {
         return "|X|" ;
     }
-
-    
-    
     
     @Override
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {

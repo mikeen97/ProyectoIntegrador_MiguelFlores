@@ -28,6 +28,11 @@ public class ProyectoIntegrador1_MiguelFlores {
         Pieza tablero[][] = new Pieza[19][19];
         CrearTablero(tablero);
         System.out.println("");
+        for (int i = 0; i < 19; i++) {
+            System.out.print("|" + i + "|\t");
+        }
+
+        System.out.println("");
         PrintMatrizRecursiva(tablero, 0, 0);
         System.out.println("Ingrese x");
         int posx = leer.nextInt();
@@ -49,13 +54,13 @@ public class ProyectoIntegrador1_MiguelFlores {
 
     public static void PrintMatrizRecursiva(Pieza x[][], int f, int c) {
         if (f == x.length - 1 && c == x.length - 1) {
-            System.out.print(x[f][c] + "");
+            System.out.print(x[f][c] + "  |" + f + "|\t");
         } else {
             if (c == x[0].length - 1) {
-                System.out.println(x[f][c]);
+                System.out.println(x[f][c] + "  |" + f + "|" + "\t");
                 PrintMatrizRecursiva(x, f + 1, 0);
             } else {
-                System.out.print(x[f][c] + " ");
+                System.out.print(x[f][c] + "\t");
                 PrintMatrizRecursiva(x, f, c + 1);
             }
         }
