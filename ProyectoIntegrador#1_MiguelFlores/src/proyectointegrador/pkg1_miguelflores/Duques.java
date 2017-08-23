@@ -19,12 +19,44 @@ public class Duques extends Pieza {
         return "|D|";
     }
 
-    
-    
-    
     @Override
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
+        boolean prueba = false;
+        Pieza e = new EspacioEnBlanco();
+        if (posx == moverx || posy == movery) {
+            if (posx == moverx) {//movimiento vertical
+                ladoAmover = posy - movery;
+                if (ladoAmover < 0) {//Abajo
+                    movimientos = Math.abs(ladoAmover);
+                }
+                if (ladoAmover > 0) {//arriba
+                    movimientos = Math.abs(ladoAmover);
+                    System.out.println("movimientos: " + movimientos);
+                    while (cont <= movimientos && prueba == false) {
+                        System.out.println("pieza " + matriz[posy - cont][posx]);
+                        if (matriz[posy - cont][posx].equals("| |")) {
+                            System.out.println("111");
+                            System.out.println(matriz[posy - cont][posx].equals(e));
+                            prueba = true;
+                            retorno = 2;//encontro pieza enmedio
+                            System.out.println("retorno en while: " + retorno);
+                            System.out.println("prueba en while: " + prueba);
+                        } else {
+                            System.out.println("2222");
+                            prueba = false;
+                            retorno = 1;
+                        }
+                        cont++;
+                    }
+                }
+            }
+            if (posy == movery) {
+            }
+        } else {
+            retorno = 2;
+        }
+        return retorno;
     }
-    
+
 }

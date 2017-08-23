@@ -19,6 +19,7 @@ public class ProyectoIntegrador1_MiguelFlores {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Duques d = new Duques();
         Scanner leer = new Scanner(System.in);
         int comenzar = 0;
         int opcion = 0;
@@ -28,7 +29,22 @@ public class ProyectoIntegrador1_MiguelFlores {
         CrearTablero(tablero);
         System.out.println("");
         PrintMatrizRecursiva(tablero, 0, 0);
-
+        System.out.println("Ingrese x");
+        int posx = leer.nextInt();
+        System.out.println("Ingrese y");
+        int posy = leer.nextInt();
+        System.out.println("Ingrese mover x");
+        int moverx = leer.nextInt();
+        System.out.println("Ingrese mover x");
+        int movery = leer.nextInt();
+        int dint = d.movimiento(tablero, posx, posy, moverx, movery);
+        if (dint == 2) {
+            tablero[posy][posx] = new EspacioEnBlanco();
+            tablero[movery][moverx] = new Duques();
+        } else {
+            System.out.println("No se puede hacer el movimiento");
+        }
+        PrintMatrizRecursiva(tablero, 0, 0);
     }
 
     public static void PrintMatrizRecursiva(Pieza x[][], int f, int c) {
