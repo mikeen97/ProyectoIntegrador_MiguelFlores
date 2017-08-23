@@ -24,4 +24,9 @@ public class EspacioEnBlanco extends Pieza {
         return 1;
     }
 
+    @Override
+    public void comida(Pieza[][] matriz) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

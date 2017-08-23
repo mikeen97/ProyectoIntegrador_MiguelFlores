@@ -73,4 +73,9 @@ public class Rebeldes extends Pieza {
         return retorno;
     }
 
+    @Override
+    public void comida(Pieza[][] matriz) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

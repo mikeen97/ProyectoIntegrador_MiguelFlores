@@ -14,5 +14,7 @@ import java.awt.Color;
 public abstract class Pieza {
 
     public abstract int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery);
-    
+
+    public abstract void comida(Pieza[][] matriz);
+
 }

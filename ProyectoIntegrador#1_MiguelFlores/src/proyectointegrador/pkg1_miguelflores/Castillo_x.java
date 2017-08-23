@@ -23,5 +23,10 @@ public class Castillo_x extends Pieza{
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void comida(Pieza[][] matriz) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
