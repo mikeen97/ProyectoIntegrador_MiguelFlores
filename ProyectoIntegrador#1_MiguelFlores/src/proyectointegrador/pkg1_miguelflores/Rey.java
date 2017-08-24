@@ -16,7 +16,7 @@ public class Rey extends Pieza {
 
     @Override
     public String toString() {
-        return "|R|";
+        return "|L|";
     }
 
     @Override
@@ -77,37 +77,38 @@ public class Rey extends Pieza {
     public void comida(Pieza[][] matriz) {
         for (int i = 0; i < 19; i++) {
             for (int j = 0; j < 19; j++) {
-                if (matriz[i][j] instanceof Rebeldes) {
+                if (matriz[i][j] instanceof Rey) {
                     if (i != 0 && i != 18 && j != 0 && j != 18) {//verifico de arriba a abajo
-                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques
-                                || matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                        if (matriz[i + 1][j] instanceof Rebeldes && matriz[i - 1][j] instanceof Rebeldes
+                                && matriz[i][j + 1] instanceof Rebeldes && matriz[i][j - 1] instanceof Rebeldes) {
                             matriz[i][j] = new EspacioEnBlanco();
-                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                            System.out.println("Rebeldes comio en: i=" + i + " j=" + j);
                         }
                     }
                     if (j > 0 && j < 18 && i == 0) {//lado arriba
-                        if (matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                        System.out.println("entro a lado arriba");
+                        if (matriz[i][j + 1] instanceof Rebeldes && matriz[i][j - 1] instanceof Rebeldes && matriz[i + 1][j] instanceof Rebeldes) {
                             matriz[i][j] = new EspacioEnBlanco();
-                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                            System.out.println("Rebeldes comio en: i=" + i + " j=" + j);
                         }
                     }
                     if (j > 0 && j < 18 && i == 18) {//lado abajo
-                        if (i == 18 && matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                        if (i == 18 && matriz[i][j + 1] instanceof Rebeldes && matriz[i][j - 1] instanceof Rebeldes && matriz[i - 1][j] instanceof Rebeldes) {
                             matriz[i][j] = new EspacioEnBlanco();
-                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                            System.out.println("Rebeldes comio en: i=" + i + " j=" + j);
                         }
                     }
                     if (i > 0 && i < 18 && j == 0) {//costado izquierdo
-                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques) {
+                        if (matriz[i + 1][j] instanceof Rebeldes && matriz[i - 1][j] instanceof Rebeldes && matriz[i][j + 1] instanceof Rebeldes) {
                             matriz[i][j] = new EspacioEnBlanco();
-                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                            System.out.println("Rebeldes comio en: i=" + i + " j=" + j);
                         }
 
                     }
                     if (i > 0 && i < 18 && j == 18) {//costado derecho
-                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques) {
+                        if (matriz[i + 1][j] instanceof Rebeldes && matriz[i - 1][j] instanceof Rebeldes && matriz[i][j - 1] instanceof Rebeldes) {
                             matriz[i][j] = new EspacioEnBlanco();
-                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                            System.out.println("Rebeldes comio en: i=" + i + " j=" + j);
                         }
                     }
                 }

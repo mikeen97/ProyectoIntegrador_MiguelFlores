@@ -31,6 +31,8 @@ public class ProyectoIntegrador1_MiguelFlores {
         boolean continuar = true;
         Pieza tablero[][] = new Pieza[19][19];
         CrearTablero(tablero);
+        tablero[9][2] = new Rey();
+
         System.out.println("");
         while (continuar) {
             for (int i = 0; i < 19; i++) {
@@ -77,6 +79,8 @@ public class ProyectoIntegrador1_MiguelFlores {
                 System.out.println("Selecciono espacio vacio");
             }
             duque.comida(tablero);
+            rey.comida(tablero);
+            rebelde.comida(tablero);
         }
 
     }
