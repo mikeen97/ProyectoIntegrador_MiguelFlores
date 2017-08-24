@@ -18,38 +18,67 @@ public class ProyectoIntegrador1_MiguelFlores {
     /**
      * @param args the command line arguments
      */
+    //clases
+    static Rebeldes rebelde = new Rebeldes();
+    static Rey rey = new Rey();
+    static Duques duque = new Duques();
+    static EspacioEnBlanco vacio = new EspacioEnBlanco();
+
     public static void main(String[] args) {
-        Duques d = new Duques();
         Scanner leer = new Scanner(System.in);
-        int comenzar = 0;
         int opcion = 0;
         String morir = "s";
         boolean continuar = true;
         Pieza tablero[][] = new Pieza[19][19];
         CrearTablero(tablero);
         System.out.println("");
-        for (int i = 0; i < 19; i++) {
-            System.out.print("|" + i + "|\t");
+        while (continuar) {
+            for (int i = 0; i < 19; i++) {
+                System.out.print("|" + i + "|\t");
+            }
+            System.out.println("");
+            PrintMatrizRecursiva(tablero, 0, 0);
+            System.out.println("Ingrese x");
+            int posx = leer.nextInt();
+            System.out.println("Ingrese y");
+            int posy = leer.nextInt();
+            System.out.println("Ingrese mover x");
+            int moverx = leer.nextInt();
+            System.out.println("Ingrese mover y");
+            int movery = leer.nextInt();
+            if (tablero[posy][posx] instanceof Rebeldes) {
+                if (rebelde.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                    System.out.println("No se puede realiza movimiento");
+                } else {
+                    tablero[posy][posx] = vacio;
+                    tablero[movery][moverx] = rebelde;
+                }
+
+            }
+            if (tablero[posy][posx] instanceof Duques) {
+                if (duque.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                    System.out.println("No se puede realiza movimiento");
+                } else {
+                    tablero[posy][posx] = vacio;
+                    tablero[movery][moverx] = duque;
+                }
+
+            }
+            if (tablero[posy][posx] instanceof Rey) {
+                if (rey.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                    System.out.println("No se puede realiza movimiento");
+                } else {
+                    tablero[posy][posx] = vacio;
+                    tablero[movery][moverx] = rey;
+                }
+
+            }
+            if (tablero[posy][posx] instanceof EspacioEnBlanco) {
+                System.out.println("Selecciono espacio vacio");
+            }
+            duque.comida(tablero);
         }
 
-        System.out.println("");
-        PrintMatrizRecursiva(tablero, 0, 0);
-        System.out.println("Ingrese x");
-        int posx = leer.nextInt();
-        System.out.println("Ingrese y");
-        int posy = leer.nextInt();
-        System.out.println("Ingrese mover x");
-        int moverx = leer.nextInt();
-        System.out.println("Ingrese mover x");
-        int movery = leer.nextInt();
-        int dint = d.movimiento(tablero, posx, posy, moverx, movery);
-        if (dint == 2) {
-            tablero[posy][posx] = new EspacioEnBlanco();
-            tablero[movery][moverx] = new Duques();
-        } else {
-            System.out.println("No se puede hacer el movimiento");
-        }
-        PrintMatrizRecursiva(tablero, 0, 0);
     }
 
     public static void PrintMatrizRecursiva(Pieza x[][], int f, int c) {

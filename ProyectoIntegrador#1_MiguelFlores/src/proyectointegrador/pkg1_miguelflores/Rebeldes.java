@@ -24,13 +24,16 @@ public class Rebeldes extends Pieza {
         int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
         boolean prueba = false;
         Pieza e = new EspacioEnBlanco();
+        if (matriz[movery][moverx] instanceof Castillo_x) {
+            return 1;
+        }
         if (posx == moverx || posy == movery) {
             if (posx == moverx) {//movimiento vertical
                 ladoAmover = posy - movery;
                 if (ladoAmover < 0) {//Abajo
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy + i][posx] instanceof Rebeldes) {
+                        if (matriz[posy + i][posx] instanceof Rebeldes || matriz[posy + i][posx] instanceof Duques || matriz[posy + i][posx] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -39,7 +42,7 @@ public class Rebeldes extends Pieza {
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy - i][posx] instanceof Rebeldes) {
+                        if (matriz[posy - i][posx] instanceof Rebeldes || matriz[posy - i][posx] instanceof Duques || matriz[posy - i][posx] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -51,7 +54,7 @@ public class Rebeldes extends Pieza {
                 if (ladoAmover < 0) {//Abajo
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy][posx + i] instanceof Rebeldes) {
+                        if (matriz[posy][posx + i] instanceof Rebeldes || matriz[posy][posx + i] instanceof Duques || matriz[posy][posx + i] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -60,7 +63,7 @@ public class Rebeldes extends Pieza {
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy][posx - i] instanceof Rebeldes) {
+                        if (matriz[posy][posx - i] instanceof Rebeldes || matriz[posy][posx - i] instanceof Duques || matriz[posy][posx - i] instanceof Rey) {
                             return 1;
                         }
                     }

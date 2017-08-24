@@ -24,13 +24,16 @@ public class Duques extends Pieza {
         int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
         boolean prueba = false;
         Pieza e = new EspacioEnBlanco();
+        if (matriz[movery][moverx] instanceof Castillo_x) {
+            return 1;
+        }
         if (posx == moverx || posy == movery) {
             if (posx == moverx) {//movimiento vertical
                 ladoAmover = posy - movery;
                 if (ladoAmover < 0) {//Abajo
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy + i][posx] instanceof Rebeldes) {
+                        if (matriz[posy + i][posx] instanceof Rebeldes || matriz[posy + i][posx] instanceof Duques || matriz[posy + i][posx] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -39,7 +42,7 @@ public class Duques extends Pieza {
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy - i][posx] instanceof Rebeldes) {
+                        if (matriz[posy - i][posx] instanceof Rebeldes || matriz[posy - i][posx] instanceof Duques || matriz[posy - i][posx] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -51,7 +54,7 @@ public class Duques extends Pieza {
                 if (ladoAmover < 0) {//Abajo
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy][posx + i] instanceof Rebeldes) {
+                        if (matriz[posy][posx + i] instanceof Rebeldes || matriz[posy][posx + i] instanceof Duques || matriz[posy][posx + i] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -60,7 +63,7 @@ public class Duques extends Pieza {
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
-                        if (matriz[posy][posx - i] instanceof Rebeldes) {
+                        if (matriz[posy][posx - i] instanceof Rebeldes || matriz[posy][posx - i] instanceof Duques || matriz[posy][posx - i] instanceof Rey) {
                             return 1;
                         }
                     }
@@ -78,14 +81,39 @@ public class Duques extends Pieza {
         for (int i = 0; i < 19; i++) {
             for (int j = 0; j < 19; j++) {
                 if (matriz[i][j] instanceof Rebeldes) {
-                    if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques && i != 0 && i != 18 && j != 0 && i != 18) {
-                        matriz[i][j] = new EspacioEnBlanco();
+                    if (i != 0 && i != 18 && j != 0 && j != 18) {//verifico de arriba a abajo
+                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques
+                                || matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                            matriz[i][j] = new EspacioEnBlanco();
+                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                        }
                     }
-                    if (matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
-                        matriz[i][j] = new EspacioEnBlanco();
+                    if (j > 0 && j < 18 && i == 0) {//lado arriba
+                        if (matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                            matriz[i][j] = new EspacioEnBlanco();
+                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                        }
+                    }
+                    if (j > 0 && j < 18 && i == 18) {//lado abajo
+                        if (i == 18 && matriz[i][j + 1] instanceof Duques && matriz[i][j - 1] instanceof Duques) {
+                            matriz[i][j] = new EspacioEnBlanco();
+                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                        }
+                    }
+                    if (i > 0 && i < 18 && j == 0) {//costado izquierdo
+                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques) {
+                            matriz[i][j] = new EspacioEnBlanco();
+                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                        }
+
+                    }
+                    if (i > 0 && i < 18 && j == 18) {//costado derecho
+                        if (matriz[i + 1][j] instanceof Duques && matriz[i - 1][j] instanceof Duques) {
+                            matriz[i][j] = new EspacioEnBlanco();
+                            System.out.println("duques comio en: i=" + i + " j=" + j);
+                        }
                     }
                 }
-
             }
         }
     }
