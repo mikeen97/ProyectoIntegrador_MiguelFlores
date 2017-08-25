@@ -23,7 +23,12 @@ public class Rey extends Pieza {
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
         int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
         boolean prueba = false;
-        Pieza e = new EspacioEnBlanco();
+        if (matriz[movery][moverx] instanceof EspacioEnBlanco) {
+            return 1;
+        }
+        if (matriz[movery][moverx] == matriz[9][9]) {
+            return 1;
+        }
         if (posx == moverx || posy == movery) {
             if (posx == moverx) {//movimiento vertical
                 ladoAmover = posy - movery;

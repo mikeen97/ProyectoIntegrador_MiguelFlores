@@ -6,6 +6,7 @@
 package proyectointegrador.pkg1_miguelflores;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -23,66 +24,169 @@ public class ProyectoIntegrador1_MiguelFlores {
     static Rey rey = new Rey();
     static Duques duque = new Duques();
     static EspacioEnBlanco vacio = new EspacioEnBlanco();
+    static ArrayList<jugador> ListJugadores = new ArrayList();
 
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        int opcion = 0;
         String morir = "s";
         boolean continuar = true;
         Pieza tablero[][] = new Pieza[19][19];
         CrearTablero(tablero);
-        tablero[9][2] = new Rey();
-
         System.out.println("");
-        while (continuar) {
-            for (int i = 0; i < 19; i++) {
-                System.out.print("|" + i + "|\t");
+        int turno = 0;
+        String opcion = "";
+        while (!opcion.equalsIgnoreCase("e")) {
+            opcion = JOptionPane.showInputDialog("Menu\n"
+                    + "a- Agregar Usuario \n"
+                    + "b- Eliminar Usuario\n"
+                    + "c- Listar Usuario\n"
+                    + "d- Jugar\n"
+                    + "e- Salir \n");
+            if (opcion.equals("a")) {
+                String nombre = "";
+                nombre = JOptionPane.showInputDialog("Ingrese el nombre del jugador");
+                ListJugadores.add(new jugador(nombre, 0, 0));
             }
-            System.out.println("");
-            PrintMatrizRecursiva(tablero, 0, 0);
-            System.out.println("Ingrese x");
-            int posx = leer.nextInt();
-            System.out.println("Ingrese y");
-            int posy = leer.nextInt();
-            System.out.println("Ingrese mover x");
-            int moverx = leer.nextInt();
-            System.out.println("Ingrese mover y");
-            int movery = leer.nextInt();
-            if (tablero[posy][posx] instanceof Rebeldes) {
-                if (rebelde.movimiento(tablero, posx, posy, moverx, movery) == 1) {
-                    System.out.println("No se puede realiza movimiento");
-                } else {
-                    tablero[posy][posx] = vacio;
-                    tablero[movery][moverx] = rebelde;
+            if (opcion.equals("b")) {
+                int p = Integer.parseInt(
+                        JOptionPane.showInputDialog("Posicion del Jugador a Eliminar"));
+                ListJugadores.remove(p);
+            }
+            if (opcion.equals("c")) {
+                String p1 = "";
+                for (jugador t1 : ListJugadores) {
+                    if (t1 instanceof jugador) {
+                        p1 += ListJugadores.indexOf(t1) + " " + ((jugador) t1) + "\n";
+                    }
                 }
-
+                JOptionPane.showMessageDialog(null, p1 + "\t");
             }
-            if (tablero[posy][posx] instanceof Duques) {
-                if (duque.movimiento(tablero, posx, posy, moverx, movery) == 1) {
-                    System.out.println("No se puede realiza movimiento");
-                } else {
-                    tablero[posy][posx] = vacio;
-                    tablero[movery][moverx] = duque;
+            if (opcion.equals("d")) {
+                String p1 = "";
+                for (jugador t1 : ListJugadores) {
+                    if (t1 instanceof jugador) {
+                        p1 += ListJugadores.indexOf(t1) + " " + ((jugador) t1) + "\n";
+                    }
                 }
+                JOptionPane.showMessageDialog(null, p1 + "\t");
+                int player1 = Integer.parseInt(JOptionPane.showInputDialog("ingreso posicion del jugador de Rebeldes"));
+                int player2 = Integer.parseInt(JOptionPane.showInputDialog("ingreso posicion del jugador de Duques"));
+                int piezasRebeldes = cantidadRebeldes(tablero);
+                int piezasDuques = cantidadDuques(tablero);
+                while (continuar) {
+                    System.out.println("Cantidad de piezas \n"
+                            + "Rebeldes: " + piezasRebeldes + "\n"
+                            + "Duques: " + piezasDuques + "\n");
+                    if (turno % 2 == 0) {
+                        System.out.println("Turno de " + ListJugadores.get(player1).getNombre());
+                        for (int i = 0; i < 19; i++) {
+                            System.out.print("|" + i + "|\t");
+                        }
+                        System.out.println("");
+                        PrintMatrizRecursiva(tablero, 0, 0);
+                        System.out.println("Ingrese x");
+                        int posx = leer.nextInt();
+                        System.out.println("Ingrese y");
+                        int posy = leer.nextInt();
+                        System.out.println("Ingrese mover x");
+                        int moverx = leer.nextInt();
+                        System.out.println("Ingrese mover y");
+                        int movery = leer.nextInt();
+                        if (tablero[posy][posx] instanceof Rebeldes) {
+                            if (rebelde.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                                System.out.println("No se puede realiza movimiento");
+                            } else {
+                                tablero[posy][posx] = vacio;
+                                tablero[movery][moverx] = rebelde;
+                            }
 
-            }
-            if (tablero[posy][posx] instanceof Rey) {
-                if (rey.movimiento(tablero, posx, posy, moverx, movery) == 1) {
-                    System.out.println("No se puede realiza movimiento");
-                } else {
-                    tablero[posy][posx] = vacio;
-                    tablero[movery][moverx] = rey;
+                        }
+                        if (tablero[posy][posx] instanceof Duques) {
+                            System.out.println("Selecciono una pieza del contrario intente de nuevo");
+                            turno--;
+                        }
+                        if (tablero[posy][posx] instanceof EspacioEnBlanco) {
+                            System.out.println("Selecciono espacio vacio, intente de nuevo");
+                            turno--;
+                        }
+                        duque.comida(tablero);
+                        rey.comida(tablero);
+                        rebelde.comida(tablero);
+                    } else {
+                        System.out.println("Turno de " + ListJugadores.get(player2).getNombre());
+                        for (int i = 0; i < 19; i++) {
+                            System.out.print("|" + i + "|\t");
+                        }
+                        System.out.println("");
+                        PrintMatrizRecursiva(tablero, 0, 0);
+                        System.out.println("Ingrese x");
+                        int posx = leer.nextInt();
+                        System.out.println("Ingrese y");
+                        int posy = leer.nextInt();
+                        System.out.println("Ingrese mover x");
+                        int moverx = leer.nextInt();
+                        System.out.println("Ingrese mover y");
+                        int movery = leer.nextInt();
+                        if (tablero[posy][posx] instanceof Duques) {
+                            if (duque.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                                System.out.println("No se puede realiza movimiento");
+                            } else {
+                                tablero[posy][posx] = vacio;
+                                tablero[movery][moverx] = rebelde;
+                            }
+                        }
+                        if (tablero[posy][posx] instanceof Rey) {
+                            if (rey.movimiento(tablero, posx, posy, moverx, movery) == 1) {
+                                System.out.println("No se puede realiza movimiento");
+                            } else {
+                                tablero[posy][posx] = vacio;
+                                tablero[movery][moverx] = rey;
+                            }
+                        }
+                        if (tablero[posy][posx] instanceof EspacioEnBlanco) {
+                            System.out.println("Selecciono espacio vacio, intente de nuevo");
+                            turno--;
+                        }
+                        if (tablero[posy][posx] instanceof Rebeldes) {
+                            System.out.println("Selecciono espacio vacio, intente de nuevo");
+                            turno--;
+                        }
+                        duque.comida(tablero);
+                        rey.comida(tablero);
+                        rebelde.comida(tablero);
+
+                    }
+                    turno++;
                 }
-
             }
-            if (tablero[posy][posx] instanceof EspacioEnBlanco) {
-                System.out.println("Selecciono espacio vacio");
-            }
-            duque.comida(tablero);
-            rey.comida(tablero);
-            rebelde.comida(tablero);
         }
+    }
 
+    public static int cantidadRebeldes(Pieza x[][]) {
+        int cont = 0;
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (x[i][j] instanceof Rebeldes) {
+                    cont++;
+                }
+            }
+        }
+        return cont;
+    }
+
+    public static int cantidadDuques(Pieza x[][]) {
+        int cont = 0;
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (x[i][j] instanceof Duques) {
+                    cont++;
+                }
+                if (x[i][j] instanceof Rey) {
+                    cont++;
+                }
+            }
+        }
+        return cont;
     }
 
     public static void PrintMatrizRecursiva(Pieza x[][], int f, int c) {
@@ -166,6 +270,8 @@ public class ProyectoIntegrador1_MiguelFlores {
         matriz[14][16] = new Rebeldes();
         matriz[16][14] = new Rebeldes();
         matriz[9][9] = new Rey();
+        matriz[14][8] = new Duques();
+        matriz[14][10] = new Duques();
     }
 
 }

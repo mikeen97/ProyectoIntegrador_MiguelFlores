@@ -27,6 +27,9 @@ public class Rebeldes extends Pieza {
         if (matriz[movery][moverx] instanceof Castillo_x) {
             return 1;
         }
+        if (matriz[movery][moverx] == matriz[9][9]) {
+            return 1;
+        }
         if (posx == moverx || posy == movery) {
             if (posx == moverx) {//movimiento vertical
                 ladoAmover = posy - movery;

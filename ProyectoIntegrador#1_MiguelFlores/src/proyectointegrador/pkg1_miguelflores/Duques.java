@@ -21,10 +21,12 @@ public class Duques extends Pieza {
 
     @Override
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
-        int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
-        boolean prueba = false;
+        int retorno = 0, movimientos = 0, ladoAmover = 0;
         Pieza e = new EspacioEnBlanco();
         if (matriz[movery][moverx] instanceof Castillo_x) {
+            return 1;
+        }
+        if (matriz[movery][moverx] == matriz[9][9]) {
             return 1;
         }
         if (posx == moverx || posy == movery) {
@@ -38,6 +40,7 @@ public class Duques extends Pieza {
                         }
                     }
                     return 2;
+
                 }
                 if (ladoAmover > 0) {//arriba
                     movimientos = Math.abs(ladoAmover);
