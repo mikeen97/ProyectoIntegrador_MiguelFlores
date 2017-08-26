@@ -29,11 +29,8 @@ public class ProyectoIntegrador1_MiguelFlores {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
         String morir = "s";
-        boolean continuar = true;
         Pieza tablero[][] = new Pieza[19][19];
-        CrearTablero(tablero);
-        System.out.println("");
-        int turno = 1;
+
         String opcion = "";
         while (!opcion.equalsIgnoreCase("e")) {
             opcion = JOptionPane.showInputDialog("Menu\n"
@@ -69,10 +66,14 @@ public class ProyectoIntegrador1_MiguelFlores {
                     }
                 }
                 JOptionPane.showMessageDialog(null, p1 + "\t");
+                CrearTablero(tablero);
+                System.out.println("");
+                int turno = 1;
                 int player1 = Integer.parseInt(JOptionPane.showInputDialog("ingreso posicion del jugador de Rebeldes"));
                 int player2 = Integer.parseInt(JOptionPane.showInputDialog("ingreso posicion del jugador de Duques"));
                 int piezasRebeldes = cantidadRebeldes(tablero);
                 int piezasDuques = cantidadDuques(tablero);
+                boolean continuar = true;
                 while (continuar) {
                     System.out.println("Cantidad de piezas \n"
                             + "Rebeldes: " + piezasRebeldes + "\n"
@@ -99,8 +100,8 @@ public class ProyectoIntegrador1_MiguelFlores {
                                 if (rebelde.movimiento(tablero, posx, posy, moverx, movery) == 1) {
                                     System.out.println("No se puede realiza movimiento");
                                 } else {
-                                    tablero[posy][posx] = vacio;
-                                    tablero[movery][moverx] = rebelde;
+                                    tablero[posy][posx] = new EspacioEnBlanco();
+                                    tablero[movery][moverx] = new Rebeldes();
                                     RepTurno = false;
                                     turno = 2;
                                 }
@@ -137,8 +138,8 @@ public class ProyectoIntegrador1_MiguelFlores {
                                 if (duque.movimiento(tablero, posx, posy, moverx, movery) == 1) {
                                     System.out.println("No se puede realiza movimiento");
                                 } else {
-                                    tablero[posy][posx] = vacio;
-                                    tablero[movery][moverx] = duque;
+                                    tablero[posy][posx] = new EspacioEnBlanco();
+                                    tablero[movery][moverx] = new Duques();
                                     RepTurno = false;
                                     turno = 1;
                                 }
@@ -146,8 +147,8 @@ public class ProyectoIntegrador1_MiguelFlores {
                                 if (rey.movimiento(tablero, posx, posy, moverx, movery) == 1) {
                                     System.out.println("No se puede realiza movimiento");
                                 } else {
-                                    tablero[posy][posx] = vacio;
-                                    tablero[movery][moverx] = rey;
+                                    tablero[posy][posx] = new EspacioEnBlanco();
+                                    tablero[movery][moverx] = new Rey();
                                     RepTurno = false;
                                     turno = 1;
                                 }
@@ -161,12 +162,46 @@ public class ProyectoIntegrador1_MiguelFlores {
                             rebelde.comida(tablero);
 
                         }
-
                     }
-
+                    if (ganarRebeldes(tablero) == 0) {
+                        System.out.println("Gano " + ListJugadores.get(player1).getNombre());
+                        continuar = false;
+                        int puntos = ListJugadores.get(player1).getPuntos();
+                        ListJugadores.get(player1).setPuntos(puntos + 100);
+                    }
+                    if (ganarDuques(tablero) == 0) {
+                        System.out.println("Gano " + ListJugadores.get(player2).getNombre());
+                        continuar = false;
+                        int puntos = ListJugadores.get(player2).getPuntos();
+                        ListJugadores.get(player2).setPuntos(puntos + 100);
+                    }
                 }
             }
         }
+    }
+
+    public static int ganarDuques(Pieza x[][]) {
+        int cont = 0;
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (x[i][j] instanceof Rebeldes) {
+                    cont = 1;//no gana
+                }
+            }
+        }
+        return cont;
+    }
+
+    public static int ganarRebeldes(Pieza x[][]) {
+        int cont = 0;//gana
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (x[i][j] instanceof Rey) {
+                    cont = 1;//no gana
+                }
+            }
+        }
+        return cont;
     }
 
     public static int cantidadRebeldes(Pieza x[][]) {

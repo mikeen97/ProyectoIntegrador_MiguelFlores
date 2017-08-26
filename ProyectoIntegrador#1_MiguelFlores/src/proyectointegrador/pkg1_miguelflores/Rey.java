@@ -23,9 +23,6 @@ public class Rey extends Pieza {
     public int movimiento(Pieza[][] matriz, int posx, int posy, int moverx, int movery) {
         int retorno = 0, movimientos = 0, ladoAmover = 0, cont = 1;
         boolean prueba = false;
-        if (matriz[movery][moverx] instanceof EspacioEnBlanco) {
-            return 1;
-        }
         if (matriz[movery][moverx] == matriz[9][9]) {
             return 1;
         }
@@ -53,7 +50,7 @@ public class Rey extends Pieza {
             }
             if (posy == movery) {//movimiento horizontal
                 ladoAmover = posx - moverx;
-                if (ladoAmover < 0) {//Abajo
+                if (ladoAmover < 0) {//Derecha
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
                         if (matriz[posy][posx + i] instanceof Rebeldes || matriz[posy][posx + i] instanceof Duques) {
@@ -62,7 +59,7 @@ public class Rey extends Pieza {
                     }
                     return 2;
                 }
-                if (ladoAmover > 0) {//arriba
+                if (ladoAmover > 0) {//Izquierda
                     movimientos = Math.abs(ladoAmover);
                     for (int i = 1; i <= movimientos; i++) {
                         if (matriz[posy][posx - i] instanceof Rebeldes || matriz[posy][posx - i] instanceof Duques) {
